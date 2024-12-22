@@ -10,12 +10,9 @@ app = FastAPI()
 
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
 
-
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     """Start command"""
     await update.message.reply_text("Hey Welcome, I am powered by FastAPI!!")
-
-
 
 async def bot_tele(update_data):
     """Process Telegram updates"""
@@ -36,7 +33,7 @@ async def webhook_post(request: Request):
     try:
         update_data = await request.json()
         if update_data:
-            asyncio.run(bot_tele(update_data))
+            await bot_tele(update_data)
             return JSONResponse(content={"status": "ok"}, status_code=200)
     except Exception as e:
         logging.error(f"Error processing webhook: {e}")
